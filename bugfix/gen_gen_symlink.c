@@ -5,6 +5,8 @@
   *
   * You have to execute this at
   *         /path/to/avrlibc/source/avr/lib/{child}
+  * You should feed this the output of
+  *         find -maxdepth 1 -type d
   * and redirect stdout to a shell script. Then
   * copy this script to
   *        {prefix}/avr/lib/{child}
