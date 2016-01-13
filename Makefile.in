@@ -45,7 +45,8 @@ erase :
 # Depending
 CFILE = $(wildcard *.c)
 CXXFILE = $(wildcard *.cpp)
-OBJ = $(patsubst %.c, %.o, $(CFILE) $(CXXFILE))
+OBJ = $(patsubst %.c, %.o, $(CFILE)) \
+$(patsubst %.cpp, %.o, $(CXXFILE))
 CDEP = $(patsubst %.c, %.dep, $(CFILE))
 CXXDEP = $(patsubst %.cpp, %.depxx, $(CXXFILE))
 
