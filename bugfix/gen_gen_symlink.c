@@ -1,3 +1,7 @@
+#warning This is DEPRECATED! See \
+"http://github.com/xry111/avr_autotools/blob/master/build_toolchain.md#step-3-install-avr-libc" \
+for more information.
+
 /**
   * Create shell script to create symlink and
   * empty archives for GCC so that it could handle
