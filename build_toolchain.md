@@ -40,7 +40,9 @@ manually. Add following lines in `bashrc`:
 
 `
 export $PATH=$PATH:$AVR_PREFIX/bin
+
 export $MANPATH=$MANPATH:$AVR_PREFIX/share/man
+
 export $INFOPATH=$INFOPATH:$AVR_PREFIX/share/info
 `
 
@@ -70,6 +72,7 @@ in a subdirectory not to pollute the source code. So issue
 
 `
 ../configure --prefix=$AVR_PREFIX --target=avr
+
 make
 `
 
@@ -100,11 +103,17 @@ almost same as for `binutils`:
 
 `
 tar -xf gcc-5.3.0.tar.bz2
+
 cd gcc-5.3.0
+
 mkdir obj-avr && cd obj-avr
+
 ../configure --prefix=$AVR_PREFIX --target=avr \
+
 --enable-languages=c,c++,lto  --with-dwarf2
+
 make
+
 make install
 `
 
@@ -135,20 +144,28 @@ needed by GCC:
 
 `
 cd avr-libc-1.8.1
+
 find avr/lib -name "Makefile.am" -exec \
+
 sed -i 's/^AVR_TARGET_CRT.*/AVR_TARGET_CRT = crt$(AVR_TARGET).o lib$(AVR_TARGET.a/g;
+
 s/$@/crt$(AVR_TARGET).o/g;
+
 /^$(AVR_TARGET_CRT)/a\\tar -v -q lib$(AVR_TARGET).a' {} \;
+
 find avr/lib -type d -exec automake {}/Makefile \;
 `
 
-This could run for a few time. Then you can configure and install AVR
-LibC:
+This would cost quite a few time. Then you can configure and install
+AVR LibC:
 
 `
 ./configure --prefix=$AVR_PREFIX \
+
 --build=`./config.guess` --host=avr
+
 make
+
 make install
 `
 
@@ -163,6 +180,7 @@ Fetch the newest AVRDUDE at [download page]
 Untar the code:
 `
 tar -xf avrdude-6.2.tar.gz
+
 cd avrdude-6.2
 `
 
@@ -176,8 +194,11 @@ Then build and install AVRDUDE:
 
 `
 mkdir obj-avr && cd obj-avr
+
 ../configure --prefix=$AVR_PREFIX
+
 make
+
 make install
 `
 
