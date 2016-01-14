@@ -16,10 +16,11 @@ HOSTCXXFLAGS = -O2 -Wall -Wextra
 RM = rm # Windows user can modify this to 'del'
 
 # AVR toolchain
+OPTFLAGS = -Os -Wall -Wextra -mmcu=$(MCU) -DF_CPU=$(FCPU)ul
 CC = avr-gcc
-CFLAGS = -Os -Wall -Wextra -mmcu=$(MCU) -DF_CPU=$(FCPU)ul
+CFLAGS = $(OPTFLAGS)
 CXX = avr-g++
-CXXFLAGS = -Os -Wall -Wextra -mmcu=$(MCU) -DF_CPU=$(FCPU)ul
+CXXFLAGS = $(OPTFLAGS)
 AS = avr-as
 AR = avr-ar
 LD = avr-ld
