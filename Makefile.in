@@ -18,9 +18,9 @@ RM = rm # Windows user can modify this to 'del'
 # AVR toolchain
 OPTFLAGS = -Os -Wall -Wextra -mmcu=$(MCU) -DF_CPU=$(FCPU)ul
 CC = avr-gcc
-CFLAGS = $(OPTFLAGS)
+CFLAGS = -std=c99 $(OPTFLAGS)
 CXX = avr-g++
-CXXFLAGS = $(OPTFLAGS)
+CXXFLAGS = -std=c++03 $(OPTFLAGS)
 AS = avr-as
 AR = avr-ar
 LD = avr-ld
