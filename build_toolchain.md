@@ -38,13 +38,9 @@ Then you should run `echo $PATH` to check if the `bin` subdir of
 your prefix is already in `$PATH`. If not you have to set them
 manually. Add following lines in `bashrc`:
 
-`
-export $PATH=$PATH:$AVR_PREFIX/bin
-
-export $MANPATH=$MANPATH:$AVR_PREFIX/share/man
-
-export $INFOPATH=$INFOPATH:$AVR_PREFIX/share/info
-`
+	export $PATH=$PATH:$AVR_PREFIX/bin
+	export $MANPATH=$MANPATH:$AVR_PREFIX/share/man
+	export $INFOPATH=$INFOPATH:$AVR_PREFIX/share/info
 
 Normally, `/usr/bin` and `/usr/local/bin` should be in `$PATH`
 by default.
@@ -57,24 +53,19 @@ needed in building and manipulating object files.
 Visit [download page](http://ftp.gnu.org/gnu/binutils) to fetch
 the newest `binutils` source package. For example:
 
-`wget http://ftp.gnu.org/gnu/binutils/binutils-2.25.1.tar.bz2`
+	wget http://ftp.gnu.org/gnu/binutils/binutils-2.25.1.tar.bz2
 
 Then unpack it:
 
-`
-tar -xf binutils-2.25.1.tar.bz2
-cd binutils-2.25.1
-`
+	tar -xf binutils-2.25.1.tar.bz2
+	cd binutils-2.25.1
 
 `binutils` developers recommended to configure and build `binutils`
 in a subdirectory not to pollute the source code. So issue
 `mkdir obj-avr && cd obj-avr`. Then run
 
-`
-../configure --prefix=$AVR_PREFIX --target=avr
-
-make
-`
+	../configure --prefix=$AVR_PREFIX --target=avr
+	make
 
 to compile Binutils for AVR targets. Some documents recommended
 option `--disable-nls` but it seems unnecessary.
@@ -84,11 +75,11 @@ Few tests may fail because of unknown reasons.
 
 Then get the necessary permission and issue
 
-`make install`
+	make install
 
 to install Binutils. At last, check your installation by issuing
 
-`avr-ld -v`
+	avr-ld -v
 
 It should print something like `GNU ld (GNU Binutils) 2.25.1`. If not,
 double check your environment varibles setting.
@@ -101,21 +92,13 @@ Fetch newest GCC source package at [download page]
 (http://ftp.gnu.org/gnu/gcc). The steps to build `avr-gcc` are
 almost same as for `binutils`:
 
-`
-tar -xf gcc-5.3.0.tar.bz2
-
-cd gcc-5.3.0
-
-mkdir obj-avr && cd obj-avr
-
-../configure --prefix=$AVR_PREFIX --target=avr \
-
---enable-languages=c,c++,lto  --with-dwarf2
-
-make
-
-make install
-`
+	tar -xf gcc-5.3.0.tar.bz2
+	cd gcc-5.3.0
+	mkdir obj-avr && cd obj-avr
+	../configure --prefix=$AVR_PREFIX --target=avr \
+	--enable-languages=c,c++,lto  --with-dwarf2
+	make
+	make install
 
 `--with-dwarf2` specify that GCC to use DWARF 2 debugging
 information as the default since AVR debuggers only support this.
@@ -126,7 +109,7 @@ wish.
 
 At last check your installation with
 
-`avr-gcc -v`
+	avr-gcc -v
 
 It should output some configurations of `avr-gcc`.
 
@@ -137,37 +120,25 @@ AVR LibC contains subroutines needed to run your program on AVR MCUs.
 Fetch newest AVR LibC at [download page]
 (http://download.savannah.gnu.org/releases/avr/libc). Then untar it:
 
-`tar -xf avr-libc-1.8.1.tar.gz`
+	tar -xf avr-libc-1.8.1.tar.gz
 
 We need to modify `Makefile.am` to ensure the generation of files
 needed by GCC:
 
-`
-cd avr-libc-1.8.1
-
-find avr/lib -name "Makefile.am" -exec \
-
-sed -i 's/^AVR_TARGET_CRT.*/AVR_TARGET_CRT = crt$(AVR_TARGET).o lib$(AVR_TARGET.a/g;
-
-s/$@/crt$(AVR_TARGET).o/g;
-
-/^$(AVR_TARGET_CRT)/a\\tar -v -q lib$(AVR_TARGET).a' {} \;
-
-find avr/lib -type d -exec automake {}/Makefile \;
-`
+	cd avr-libc-1.8.1
+	find avr/lib -name "Makefile.am" -exec \
+	sed -i 's/^AVR_TARGET_CRT.*/AVR_TARGET_CRT = crt$(AVR_TARGET).o lib$(AVR_TARGET.a/g;
+	s/$@/crt$(AVR_TARGET).o/g;
+	/^$(AVR_TARGET_CRT)/a\\tar -v -q lib$(AVR_TARGET).a' {} \;
+	find avr/lib -type d -exec automake {}/Makefile \;
 
 This would cost quite a few time. Then you can configure and install
 AVR LibC:
 
-`
-./configure --prefix=$AVR_PREFIX \
-
---build=`./config.guess` --host=avr
-
-make
-
-make install
-`
+	./configure --prefix=$AVR_PREFIX \
+	--build=`./config.guess` --host=avr
+	make
+	make install
 
 ## Step 4. Install AVRDUDE
 
@@ -178,29 +149,22 @@ Fetch the newest AVRDUDE at [download page]
 (http://download.savannah.gnu.org/releases/avrdude/).
 
 Untar the code:
-`
-tar -xf avrdude-6.2.tar.gz
 
-cd avrdude-6.2
-`
+	tar -xf avrdude-6.2.tar.gz
+	cd avrdude-6.2
 
 There is a fatal BUG in AVRDUDE 6.2 code operating Linux serial ports.
 We can disable these code and make AVRDUDE consider Linux as normal
 UNIX:
 
-`sed -i '/^#if !defined(WIN32NATIVE)/a #undef __linux__' ser_posix.c`
+	sed -i '/^#if !defined(WIN32NATIVE)/a #undef __linux__' ser_posix.c
 
 Then build and install AVRDUDE:
 
-`
-mkdir obj-avr && cd obj-avr
-
-../configure --prefix=$AVR_PREFIX
-
-make
-
-make install
-`
+	mkdir obj-avr && cd obj-avr
+	../configure --prefix=$AVR_PREFIX
+	make
+	make install
 
 Check your installation issuing `avrdude`. Then you should see the
 usage of AVRDUDE on screen.
