@@ -118,7 +118,7 @@ It should output some configurations of `avr-gcc`.
 AVR LibC contains subroutines needed to run your program on AVR MCUs.
 
 Fetch newest AVR LibC at [download page]
-(http://download.savannah.gnu.org/releases/avr/libc). Then untar it:
+(http://download.savannah.gnu.org/releases/avr-libc/). Then untar it:
 
 	tar -xf avr-libc-1.8.1.tar.gz
 
