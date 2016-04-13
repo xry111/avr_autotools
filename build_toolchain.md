@@ -141,14 +141,8 @@ Fetch the newest AVRDUDE at [download page]
 
 Untar the code:
 
-	tar -xf avrdude-6.2.tar.gz
-	cd avrdude-6.2
-
-There is a fatal BUG in AVRDUDE 6.2 code operating Linux serial ports.
-We can disable these code and make AVRDUDE consider Linux as normal
-UNIX:
-
-	sed -i '/^#if !defined(WIN32NATIVE)/a #undef __linux__' ser_posix.c
+	tar -xf avrdude-6.3.tar.gz
+	cd avrdude-6.3
 
 Then build and install AVRDUDE:
 
