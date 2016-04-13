@@ -120,21 +120,12 @@ AVR LibC contains subroutines needed to run your program on AVR MCUs.
 Fetch newest AVR LibC at [download page]
 (http://download.savannah.gnu.org/releases/avr-libc/). Then untar it:
 
-	tar -xf avr-libc-1.8.1.tar.gz
-
-We need to modify `Makefile.am` to ensure the generation of files
-needed by GCC:
-
-	cd avr-libc-1.8.1
-	find avr/lib -name "Makefile.am" -exec \
-	sed -i 's/^AVR_TARGET_CRT.*/AVR_TARGET_CRT = crt$(AVR_TARGET).o lib$(AVR_TARGET.a/g;
-	s/$@/crt$(AVR_TARGET).o/g;
-	/^$(AVR_TARGET_CRT)/a\\tar -v -q lib$(AVR_TARGET).a' {} \;
-	find avr/lib -type d -exec automake {}/Makefile \;
+	tar -xf avr-libc-2.0.0.tar.bz2
 
 This would cost quite a few time. Then you can configure and install
 AVR LibC:
 
+	cd avr-libc-2.0.0
 	./configure --prefix=$AVR_PREFIX \
 	--build=`./config.guess` --host=avr
 	make
